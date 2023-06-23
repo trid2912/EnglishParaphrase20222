@@ -137,7 +137,7 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
             wandb.log(infor)
             if iter == max_iter:
                 break
-    return model 
+    return encoder,decoder
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pytorch training")
@@ -148,4 +148,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     logger = setup_logger("NLP_train", args.output_dir , str(datetime.now()) + ".log")
-    model = train(cfg, logger,args.encoder, args.decoder , output_dir= args.output_dir, max_iter = args.max_iteration )
+    encoder, decoder = train(cfg, logger,args.encoder, args.decoder , output_dir= args.output_dir, max_iter = args.max_iteration )
