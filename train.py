@@ -51,8 +51,8 @@ def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_ite
 
     if not max_iter:
         max_iter = 40000
-
-    output_dir = cfg.OUTPUT_DIR
+    if not output_dir:
+        output_dir = cfg.OUTPUT_DIR
 
     criterion = nn.NLLLoss()
     encoder.train()
@@ -131,7 +131,7 @@ def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_ite
                         torch.save({"decoder_state_dict": decoder.state_dict(), 
                                             "iteration": iter,
                                             }, os.path.join(output_dir, "best_decoder.pkl"))
-                    logger.info(evaluateRandomly(encoder, decoder))
+                    logger.info(evaluateRandomly(encoder, decoder, input_lang_test, output_lang_test))
                     
                 
             wandb.log(infor)
@@ -141,11 +141,11 @@ def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_ite
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Pytorch training")
-    parser.add_argument("--pretrain", default="")
-    parser.add_argument("--checkpoint", default=None)
-    parser.add_argument("--output_dir", default="")
-    parser.add_argument("--epoch", default=None)
+    parser.add_argument("--encoder", default=None)
+    parser.add_argument("--decoder", default=None)
+    parser.add_argument("--output_dir", default=None)
+    parser.add_argument("--max_iteration", default=None)
     args = parser.parse_args()
     
     logger = setup_logger("NLP_train", args.output_dir , str(datetime.now()) + ".log")
-    model = train(cfg, logger,args.pretrain, args.checkpoint , output_dir= args.output_dir, epoch=args.epoch )
+    model = train(cfg, logger,args.encoder, args.decoder , output_dir= args.output_dir, max_iter = args.max_iteration )
