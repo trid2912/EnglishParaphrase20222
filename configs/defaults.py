@@ -5,6 +5,8 @@ import torch
 
 _C = CN()
 
+_C.OUTPUT_DIR = "/kaggle/working"
+
 _C.INPUT = CN()
 _C.INPUT.MAX_LENGTH = 30
 _C.INPUT.SOS_token = 0
@@ -19,9 +21,26 @@ _C.INPUT.eng_prefixes = (
 )
 
 
+_C.DATASETS = CN()
+_C.DATASETS.TRAIN = "/kaggle/input/para-nmt-5m-cut/train.txt"
+_C.DATASETS.TEST  = "/kaggle/input/para-nmt-5m-cut/test.txt"
+
 _C.MODEL = CN()
 _C.MODEL.DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+_C.MODEL.HIDDEN_SIZE = 128
 
+
+_C.SOLVER = CN()
+_C.SOLVER.MAX_ITER = 40000
+_C.SOLVER.STOP_ITER = 40000
+
+_C.SOLVER.LR_METHOD = "poly"
+_C.SOLVER.BATCH_SIZE = 32
+_C.SOLVER.LR = 0.005
+_C.SOLVER.POWER = 0.9
+
+_C.SOLVER.MOMENTUM = 0.9
+_C.SOLVER.WEIGHT_DECAY = 5e-4
 
 '''
 _C.OUTPUT_DIR = "logs/train_fully"
