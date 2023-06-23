@@ -59,10 +59,10 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
     decoder.train()
 
 
-    encoder_optimizer = torch.optim.SGD([p for p in model.parameters() if p.requires_grad], 
+    encoder_optimizer = torch.optim.SGD([p for p in encoder.parameters() if p.requires_grad], 
     lr=cfg.SOLVER.LR, momentum=cfg.SOLVER.MOMENTUM, weight_decay=cfg.SOLVER.WEIGHT_DECAY)
     encoder_optimizer.zero_grad()
-    decoder_optimizer = torch.optim.SGD([p for p in model.parameters() if p.requires_grad], 
+    decoder_optimizer = torch.optim.SGD([p for p in encoder.parameters() if p.requires_grad], 
     lr=cfg.SOLVER.LR, momentum=cfg.SOLVER.MOMENTUM, weight_decay=cfg.SOLVER.WEIGHT_DECAY)
     decoder_optimizer.zero_grad()
     
