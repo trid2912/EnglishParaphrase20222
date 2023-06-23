@@ -38,7 +38,7 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
                                              "hidden_size": cfg.MODEL.HIDDEN_SIZE,
                                              "device": cfg.MODEL.DEVICE})
     device = torch.device(cfg.MODEL.DEVICE)
-    iter = 0
+    iter = 1
     encoder = EncoderRNN(input_lang.n_words, cfg.MODEL.HIDDEN_SIZE).to(device)
     if encoder_weight is not None:
         save_encoder = torch.load(encoder_weight)
