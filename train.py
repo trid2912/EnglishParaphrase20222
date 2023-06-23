@@ -25,7 +25,7 @@ def combine_cfg(config_dir=None):
         cfg_base.merge_from_file(config_dir)
     return cfg_base 
 
-def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_iter =None):
+def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir= None, max_iter =None):
 
 
     input_lang, output_lang, train_loader = get_dataloader(cfg.SOLVER.BATCH_SIZE, filename = cfg.DATASETS.TRAIN)
@@ -40,13 +40,13 @@ def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_ite
     device = torch.device(cfg.MODEL.DEVICE)
     iter = 0
     encoder = EncoderRNN(input_lang.n_words, cfg.MODEL.HIDDEN_SIZE).to(device)
-    if encoder is not None:
-        save_encoder = torch.load(encoder)
+    if encoder_weight is not None:
+        save_encoder = torch.load(encoder_weight)
         encoder.load_state_dict(save_encoder["encoder_state_dict"])
         iter = save_decoder["iteration"]
     decoder = AttnDecoderRNN(cfg.MODEL.HIDDEN_SIZE, output_lang.n_words).to(device)
-    if decoder is not None:
-        save_decoder = torch.load(decoder)
+    if decoder_weight is not None:
+        save_decoder = torch.load(decoder_weight)
         decoder.load_state_dict(save_decoder["decoder_state_dict"])
 
     if not max_iter:
