@@ -69,12 +69,12 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
     logger.info("Number of train data : " + str(len(train_loader)*cfg.SOLVER.BATCH_SIZE))
     
     logger.info("Start training")
-    model.train()
+    
     end = time.time()
     best_bleu = 0
     while iter < max_iter:
         for data in train_loader:
-            model.train()
+            
             data_time = time.time() - end
             end = time.time()
             
@@ -106,7 +106,8 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
             if iter % 100 == 0:
 
                 logger.info("Validation mode")
-                model.eval()
+                encoder.eval()
+                decoder.eval
                 with torch.no_grad():
                     bleu = 0
                     for pair in pairs:
