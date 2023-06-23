@@ -40,12 +40,12 @@ def train(cfg, logger, encoder = None, decoder = None, output_dir= None, max_ite
     device = torch.device(cfg.MODEL.DEVICE)
     iter = 0
     encoder = EncoderRNN(input_lang.n_words, cfg.MODEL.HIDDEN_SIZE).to(device)
-    if encoder:
+    if encoder is not None:
         save_encoder = torch.load(encoder)
         encoder.load_state_dict(save_encoder["encoder_state_dict"])
         iter = save_decoder["iteration"]
     decoder = AttnDecoderRNN(cfg.MODEL.HIDDEN_SIZE, output_lang.n_words).to(device)
-    if decoder:
+    if decoder is not None:
         save_decoder = torch.load(decoder)
         decoder.load_state_dict(save_decoder["decoder_state_dict"])
 
