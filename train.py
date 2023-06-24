@@ -108,11 +108,12 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
 
                 logger.info("Validation mode")
                 encoder.eval()
-                decoder.eval
+                decoder.eval()
                 with torch.no_grad():
                     bleu = 0
                     for pair in pairs:
                         output_words, _ = evaluate(encoder, decoder, pair[0], input_lang_test, output_lang_test)
+                        print("check)
                         output_sentence = ' '.join(output_words)
                         bleu += bleu_score(pair[0], output_sentence)
                     bleu = bleu/len(pairs)
