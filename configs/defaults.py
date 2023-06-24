@@ -27,7 +27,7 @@ _C.DATASETS.TEST  = "/kaggle/input/para-nmt-5m-cut/test.txt"
 
 _C.MODEL = CN()
 _C.MODEL.DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-_C.MODEL.HIDDEN_SIZE = 256
+_C.MODEL.HIDDEN_SIZE = 512
 
 
 _C.SOLVER = CN()
