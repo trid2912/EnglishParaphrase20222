@@ -113,7 +113,6 @@ def train(cfg, logger, encoder_weight = None, decoder_weight = None, output_dir=
                     bleu = 0
                     for pair in pairs:
                         output_words, _ = evaluate(encoder, decoder, pair[0], input_lang_test, output_lang_test)
-                        print("check")
                         output_sentence = ' '.join(output_words)
                         bleu += bleu_score(pair[0], output_sentence)
                     bleu = bleu/len(pairs)
