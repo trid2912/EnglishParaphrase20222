@@ -153,11 +153,13 @@ def evaluate(encoder, decoder, sentence, input_lang, output_lang):
         encoder_outputs, encoder_hidden = encoder(input_tensor)
         decoder_outputs, decoder_hidden, decoder_attn = decoder(encoder_outputs, encoder_hidden)
 
+        print("check1")
         _, topi = decoder_outputs.topk(1)
         decoded_ids = topi.squeeze()
-
+        print("check2")
         decoded_words = []
         for idx in decoded_ids:
+            print(idx)
             if idx.item() == EOS_token:
                 decoded_words.append('<EOS>')
                 break
