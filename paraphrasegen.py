@@ -31,7 +31,7 @@ def generate_paraphrase(sentence):
     return paraphrases
 
 #demo
-sentence = str(input)
+sentence = str(input("Input the sentence: "))
 paraphrases_gen = generate_paraphrase(sentence)
 for paraphrase in paraphrases_gen:
     print(paraphrase)
